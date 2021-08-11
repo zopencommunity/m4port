@@ -14,4 +14,4 @@ This will generate the m4 executable in the 'src' sub-directory of the M4 tree
 
 # Known issues
 
-Only a very basic test has been run. Input m4 files need to be in a tagged ISO8859-1 file with auto-conversion on (see setenv.sh for expected settings)
+Only very basic testing has been done. Input m4 files need to be in a tagged ISO8859-1 file with auto-conversion on (see setenv.sh for expected settings)
