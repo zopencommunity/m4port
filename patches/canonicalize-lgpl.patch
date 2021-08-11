@@ -1,0 +1,36 @@
+*** canonicalize-lgpl.c Thu Apr  1 16:30:11 2021
+--- canonicalize-lgpl-new.c Wed Jul 28 16:17:08 2021
+***************
+*** 74,80 ****
+  # define __pathconf pathconf
+  # define __rawmemchr rawmemchr
+  # define __readlink readlink
+! # define __stat stat
+  # if IN_RELOCWRAPPER
+      /* When building the relocatable program wrapper, use the system's memmove
+         function, not the gnulib override, otherwise we would get a link error.
+--- 74,80 ----
+  # define __pathconf pathconf
+  # define __rawmemchr rawmemchr
+  # define __readlink readlink
+! # define __gplstat stat
+  # if IN_RELOCWRAPPER
+      /* When building the relocatable program wrapper, use the system's memmove
+         function, not the gnulib override, otherwise we would get a link error.
+***************
+*** 105,111 ****
+    return __faccessat (AT_FDCWD, file, F_OK, AT_EACCESS) == 0;
+  # else
+    struct stat st;
+!   return __stat (file, &st) == 0 || errno == EOVERFLOW;
+  # endif
+  }
+  
+--- 105,111 ----
+    return __faccessat (AT_FDCWD, file, F_OK, AT_EACCESS) == 0;
+  # else
+    struct stat st;
+!   return __gplstat (file, &st) == 0 || errno == EOVERFLOW;
+  # endif
+  }
+  
