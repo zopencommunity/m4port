@@ -1,5 +1,5 @@
-# zos-autotools 
-Place to share information about configure/build of z/OS Autotools (only deltas to open source)
+# m4port
+Place to share information about configure/build of m4 for z/OS (only deltas to open source)
 
 # pre-reqs
 You need gmake, c99, and either manually upload the M4 tarball to your system or use curl/gunzip to do it automatically
