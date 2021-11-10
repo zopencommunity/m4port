@@ -1,0 +1,37 @@
+*** ../m4-1.4.19/src/builtin.c Mon May 10 17:33:22 2021
+--- ../m4-1.4.19/src/builtin-new.c Tue Nov  9 22:25:07 2021
+***************
+*** 980,985 ****
+--- 980,998 ----
+      }
+  }
+  
++ #ifdef __MVS__
++ static int __chgfdccsid(int fd, unsigned short ccsid) {
++   attrib_t attr;
++   memset(&attr, 0, sizeof(attr));
++   attr.att_filetagchg = 1;
++   attr.att_filetag.ft_ccsid = ccsid;
++   if (ccsid != FT_BINARY) {
++     attr.att_filetag.ft_txtflag = 1;
++   }
++   return __fchattr(fd, &attr, sizeof(attr));
++ }
++ #endif
++ 
+  static void
+  m4_esyscmd (struct obstack *obs, int argc, token_data **argv)
+  {
+***************
+*** 1022,1027 ****
+--- 1035,1044 ----
+    pin = fdopen (fd, "rt");
+  #else
+    pin = fdopen (fd, "r");
++ #endif
++ 
++ #ifdef __MVS__
++   __chgfdccsid(fileno(pin), 819);
+  #endif
+    if (pin == NULL)
+      {
