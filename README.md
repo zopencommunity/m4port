@@ -3,6 +3,11 @@ Place to share information about configure/build of m4 for z/OS (only deltas to 
 
 # pre-reqs
 You need gmake, c99, and either manually upload the M4 tarball to your system or use curl/gunzip to do it automatically
+You will also need a 'bootstrap' m4 to build using the tarball. 
+TBD: support building from source, which requires Autotools
+
+You will need to modify the setenv.sh, unless:
+ - you have a file system called /<userid> that you will build out of and install into
 
 # Build m4
 ```
@@ -10,7 +15,7 @@ You need gmake, c99, and either manually upload the M4 tarball to your system or
 ./m4build.sh
 ```
 
-This will generate the m4 executable in the 'src' sub-directory of the M4 tree
+This will install m4 into /<userid>/m4prod directory tree.
 
 # Creating a new patch
 
