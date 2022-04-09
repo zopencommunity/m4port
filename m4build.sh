@@ -8,7 +8,7 @@
 #  - ensure you have an m4 bootstrap program available under M4_BOOTSTRAP_ROOT
 #  - either pre-install the M4 tar ball into M4_ROOT or have curl/gunzip installed for auto-download
 #
-set -x
+#set -x
 
 if [ "${M4_ROOT}" = '' ]; then
 	echo "Need to set M4_ROOT - source setenv.sh" >&2
@@ -20,10 +20,6 @@ if [ "${M4_BOOTSTRAP_ROOT}" = '' ]; then
 fi
 if [ "${M4_VRM}" = '' ]; then
 	echo "Need to set M4_VRM - source setenv.sh" >&2
-	exit 16
-fi
-if [ "${M4_BRANCH}" = '' ]; then
-	echo "Need to set M4_BRANCH - source setenv.sh" >&2
 	exit 16
 fi
 
@@ -42,17 +38,31 @@ if ! ${M4_BOOTSTRAP_ROOT}/bin/m4 --version >/dev/null 2>&1; then
 	exit 16
 fi
 
-MY_ROOT=$(cd dirname $0; echo $PWD)
+MY_ROOT=$(cd $( dirname $0 ); echo $PWD)
 cd "${M4_ROOT}" || exit 99
 
 if [ "${M4_VRM}" = "m4" ]; then
+	if [ "${M4_BRANCH}" = '' ]; then
+		echo "Need to set M4_BRANCH - source setenv.sh" >&2
+		exit 16
+	fi
 	if ! [ -d "${M4_VRM}" ] ; then 
 		if ! git clone "${AUTOTOOLS_MIRROR}/${M4_VRM}.git" ; then
 			exit 4
 		fi
+		cd "${M4_VRM}" || exit 99
+		if ! git checkout "${M4_BRANCH}" ; then
+			echo "Unable to checkout branch ${M4_BRANCH}" >&2
+			exit 4
+		fi
+		cd "${M4_ROOT}" || exit 99
 	fi
 else
 	# Non-dev - get the tar file
+	if [ "${M4_URL}" = '' ]; then
+		echo "Need to set M4_URL - source setenv.sh" >&2
+		exit 16
+	fi
 
 	rm -rf "${M4_VRM}"
 	if ! mkdir -p "${M4_VRM}"; then
@@ -61,7 +71,6 @@ else
 	fi
 
 	if ! [ -f "${M4_VRM}.tar" ]; then
-		URL="http://ftp.gnu.org/gnu/m4/"
 		echo "m4 tar file not found. Attempt to download with curl" 
 		if ! whence curl >/dev/null ; then
 			echo "curl not installed. You will need to upload M4, or install curl/gunzip from ${M4_URL}" >&2
@@ -154,6 +163,7 @@ if ! ./runexamples.sh ; then
 	exit 16
 fi
 
+cd "${M4_ROOT}/${M4_VRM}" || exit 99
 if ! make install ; then
 	echo "Make install of M4 failed." >&2
 	exit 16
