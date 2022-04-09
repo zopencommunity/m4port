@@ -28,7 +28,7 @@ If you need a new patch file, the following technique works:
 For example, assume I want to change _src/builtin.c_ 
 - create _src/builtin-new.c_
 - cd into the _patches_ directory
-- issue _diff -c ../*/src/builtin.c ../*/src/builtin-new.c_ >builtin.patch
+- issue _diff -c `../*/src/builtin.c ../*/src/builtin-new.c_ >builtin.patch`
 - update _m4build.sh_ by looking for the _Apply Patches_ comment header and inserting a new patch statement
 
 # Known issues
