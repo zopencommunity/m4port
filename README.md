@@ -7,7 +7,7 @@ You will also need a 'bootstrap' m4 to build using the tarball.
 TBD: support building from source, which requires Autotools
 
 You will need to modify the setenv.sh, unless:
- - you have a file system called /<userid> that you will build out of and install into
+ - you have a file system called /_userid_ that you will build out of and install into, e.g. for my userid _fultonm_ I have a _/fultonm_ file system for building code.
 
 # Build m4
 ```
@@ -15,7 +15,7 @@ You will need to modify the setenv.sh, unless:
 ./m4build.sh
 ```
 
-This will install m4 into /<userid>/m4prod directory tree.
+This will install m4 into /_userid_/m4prod directory tree.
 
 # Creating a new patch
 
