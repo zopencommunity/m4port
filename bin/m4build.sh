@@ -112,16 +112,23 @@ cd "${M4_ROOT}/${M4_VRM}" || exit 99
 #
 # Apply patches
 #
-if [ "${M4_VRM}" = "m4-1.4.19" ]; then
-	patch -c lib/canonicalize-lgpl.c <${M4_ROOT}/patches/canonicalize-lgpl.patch
-	if [ $? -gt 0 ]; then
-		echo "Patch of M4 tree failed (canonicalize-lgpl)." >&2
+if true ; then
+	if ! manage_patches.sh ; then
+		echo "Unable to patch M4 tree" >&2
 		exit 16
 	fi
-	patch -c src/builtin.c <${M4_ROOT}/patches/builtin.patch
-	if [ $? -gt 0 ]; then
-		echo "Patch of M4 tree failed (builtin)." >&2
-		exit 16
+else
+	if [ "${M4_VRM}" = "m4-1.4.19" ]; then
+		patch -c lib/canonicalize-lgpl.c <${M4_ROOT}/patches/canonicalize-lgpl.patch
+		if [ $? -gt 0 ]; then
+			echo "Patch of M4 tree failed (canonicalize-lgpl)." >&2
+			exit 16
+		fi
+		patch -c src/builtin.c <${M4_ROOT}/patches/builtin.patch
+		if [ $? -gt 0 ]; then
+			echo "Patch of M4 tree failed (builtin)." >&2
+			exit 16
+		fi
 	fi
 fi
 
