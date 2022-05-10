@@ -1,0 +1,7 @@
+make check fails with the following:
+Failed checks were:
+  ./005.command_li:out ./006.command_li:out ./006.command_li:err ./137.include:err
+
+You can manually cd int the m4 tree and:
+make install
+to install into your 'prod' directory
