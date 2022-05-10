@@ -36,4 +36,7 @@ else
 	export M4_BOOTSTRAP_ROOT="/${fsroot}/m4boot"
 	export M4_INSTALL_PREFIX="/${fsroot}/m4prod"   
 
+	export CC=xlclang
+	export CFLAGS="-qascii -D_OPEN_THREADS=3 -D_UNIX03_SOURCE=1 -DNSIG=39 -Wc,lp64 -Wl,lp64 -qfloat=ieee -qnose -qfloat=ieee -I${M4_ROOT}/${M4_VRM}/lib,/usr/include" 
+	export PATH="${M4_ROOT}/bin:${PATH}"
 fi
