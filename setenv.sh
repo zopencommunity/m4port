@@ -48,5 +48,7 @@ else
 		export M4_INSTALL_PREFIX="${HOME}/zot/prod/m4"   
 	fi
 
+	export MY_ROOT="${PWD}"
 	export PATH="${MAKE_ROOT}/bin:${M4_ROOT}/bin:${GZIP_ROOT}/bin:${PATH}"
+	export PATH="${MY_ROOT}/bin:${PATH}"
 fi

@@ -10,6 +10,10 @@
 #
 #set -x
 
+if [ "${MY_ROOT}" = '' ]; then
+	echo "Need to set MY_ROOT - source setenv.sh" >&2
+	exit 16
+fi
 if [ "${M4_ROOT}" = '' ]; then
 	echo "Need to set M4_ROOT - source setenv.sh" >&2
 	exit 16
@@ -34,7 +38,6 @@ if ! ${M4_ROOT}/bin/m4 --version >/dev/null 2>&1; then
 	exit 16
 fi
 
-MY_ROOT=$(cd $( dirname $0 ); echo $PWD)
 cd "${MY_ROOT}" || exit 99
 
 if [ "${M4_VRM}" = "m4" ]; then
@@ -109,17 +112,9 @@ cd "${MY_ROOT}/${M4_VRM}" || exit 99
 #
 # Apply patches
 #
-if [ "${M4_VRM}" = "m4-1.4.19" ]; then
-	patch -c lib/canonicalize-lgpl.c <${MY_ROOT}/patches/canonicalize-lgpl.patch
-	if [ $? -gt 0 ]; then
-		echo "Patch of M4 tree failed (canonicalize-lgpl)." >&2
-		exit 16
-	fi
-	patch -c src/builtin.c <${MY_ROOT}/patches/builtin.patch
-	if [ $? -gt 0 ]; then
-		echo "Patch of M4 tree failed (builtin)." >&2
-		exit 16
-	fi
+if ! managepatches.sh ; then
+	echo "Unable to patch M4 tree" >&2
+	exit 16
 fi
 
 export PATH="${M4_ROOT}/bin:${PATH}"
@@ -146,6 +141,11 @@ fi
 
 cd "${MY_ROOT}/${M4_VRM}" || exit 99
 if ! make ; then
+	echo "MAKE of M4 tree failed." >&2
+	exit 16
+fi
+
+if ! make check ; then
 	echo "MAKE of M4 tree failed." >&2
 	exit 16
 fi

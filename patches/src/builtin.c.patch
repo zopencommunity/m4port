@@ -1,9 +1,6 @@
-*** ../m4-1.4.19/src/builtin.c Mon May 10 17:33:22 2021
---- ../m4-1.4.19/src/builtin-new.c Tue Nov  9 22:25:07 2021
 ***************
-*** 980,985 ****
---- 980,998 ----
-      }
+*** 981,984 ****
+--- 981,997 ----
   }
   
 + #ifdef __MVS__
@@ -21,11 +18,9 @@
 + 
   static void
   m4_esyscmd (struct obstack *obs, int argc, token_data **argv)
-  {
 ***************
-*** 1022,1027 ****
---- 1035,1044 ----
-    pin = fdopen (fd, "rt");
+*** 1023,1026 ****
+--- 1036,1043 ----
   #else
     pin = fdopen (fd, "r");
 + #endif
@@ -33,5 +28,4 @@
 + #ifdef __MVS__
 +   __chgfdccsid(fileno(pin), 819);
   #endif
-    if (pin == NULL)
-      {
+  
