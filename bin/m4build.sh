@@ -10,12 +10,12 @@
 #
 #set -x
 
-if [ "${M4_ROOT}" = '' ]; then
-	echo "Need to set M4_ROOT - source setenv.sh" >&2
+if [ "${MY_ROOT}" = '' ]; then
+	echo "Need to set MY_ROOT - source setenv.sh" >&2
 	exit 16
 fi
-if [ "${M4_BOOTSTRAP_ROOT}" = '' ]; then
-	echo "Need to set M4_BOOTSTRA_PROOT - source setenv.sh" >&2
+if [ "${M4_ROOT}" = '' ]; then
+	echo "Need to set M4_ROOT - source setenv.sh" >&2
 	exit 16
 fi
 if [ "${M4_VRM}" = '' ]; then
@@ -33,12 +33,12 @@ if ! whence c99 >/dev/null ; then
 	exit 16
 fi
 
-if ! ${M4_BOOTSTRAP_ROOT}/bin/m4 --version >/dev/null 2>&1; then
+if ! ${M4_ROOT}/bin/m4 --version >/dev/null 2>&1; then
 	echo "bootstrap m4 required to build M4. " >&2
 	exit 16
 fi
 
-cd "${M4_ROOT}" || exit 99
+cd "${MY_ROOT}" || exit 99
 
 if [ "${M4_VRM}" = "m4" ]; then
 	if [ "${M4_BRANCH}" = '' ]; then
@@ -54,7 +54,7 @@ if [ "${M4_VRM}" = "m4" ]; then
 			echo "Unable to checkout branch ${M4_BRANCH}" >&2
 			exit 4
 		fi
-		cd "${M4_ROOT}" || exit 99
+		cd "${MY_ROOT}" || exit 99
 	fi
 else
 	# Non-dev - get the tar file
@@ -107,7 +107,7 @@ fi
 
 DELTA_ROOT="${PWD}"
 
-cd "${M4_ROOT}/${M4_VRM}" || exit 99
+cd "${MY_ROOT}/${M4_VRM}" || exit 99
 
 #
 # Apply patches
@@ -117,7 +117,7 @@ if ! managepatches.sh ; then
 	exit 16
 fi
 
-export PATH="${M4_BOOTSTRAP_ROOT}/bin:${PATH}"
+export PATH="${M4_ROOT}/bin:${PATH}"
 
 if [ "${M4_VRM}" = "m4" ]; then
 	./bootstrap
@@ -130,13 +130,16 @@ fi
 #
 # Setup the configuration so that the system search path looks in lib and include ahead of the standard C libraries
 #
+export CC=xlclang
+export CFLAGS="-qascii -D_OPEN_THREADS=3 -D_UNIX03_SOURCE=1 -DNSIG=39 -D_AE_BIMODAL=1 -D_XOPEN_SOURCE_EXTENDED -D_ALL_SOURCE -D_ENHANCED_ASCII_EXT=0xFFFFFFFF -D_OPEN_SYS_FILE_EXT=1 -D_OPEN_SYS_SOCK_IPV6 -D_XOPEN_SOURCE=600 -D_XOPEN_SOURCE_EXTENDED  -qnose -qfloat=ieee -I${MY_ROOT}/${M4_VRM}/lib,${DELTA_ROOT}/include,/usr/include"
+
 ./configure --prefix="${M4_INSTALL_PREFIX}"
 if [ $? -gt 0 ]; then
 	echo "Configure of M4 tree failed." >&2
 	exit 16
 fi
 
-cd "${M4_ROOT}/${M4_VRM}" || exit 99
+cd "${MY_ROOT}/${M4_VRM}" || exit 99
 if ! make ; then
 	echo "MAKE of M4 tree failed." >&2
 	exit 16
@@ -148,7 +151,7 @@ if ! make check ; then
 fi
 
 cd "${DELTA_ROOT}/tests"
-export PATH="${M4_ROOT}/${M4_VRM}/src:${PATH}"
+export PATH="${MY_ROOT}/${M4_VRM}/src:${PATH}"
 
 if ! ./runbasic.sh ; then
 	echo "Basic test of M4 failed." >&2
@@ -159,7 +162,7 @@ if ! ./runexamples.sh ; then
 	exit 16
 fi
 
-cd "${M4_ROOT}/${M4_VRM}" || exit 99
+cd "${MY_ROOT}/${M4_VRM}" || exit 99
 if ! make install ; then
 	echo "Make install of M4 failed." >&2
 	exit 16

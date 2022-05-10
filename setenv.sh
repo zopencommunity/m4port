@@ -31,12 +31,24 @@ else
 		export M4_URL="http://ftp.gnu.org/gnu/m4/"
 		export M4_VRM="m4-1.4.19"
 	fi
-	export M4_ROOT="${PWD}"
-	export fsroot=$( basename $HOME )
-	export M4_BOOTSTRAP_ROOT="/${fsroot}/m4boot"
-	export M4_INSTALL_PREFIX="/${fsroot}/m4prod"   
 
-	export CC=xlclang
-	export CFLAGS="-qascii -D_OPEN_THREADS=3 -D_UNIX03_SOURCE=1 -DNSIG=39 -Wc,lp64 -Wl,lp64 -qfloat=ieee -qnose -qfloat=ieee -I${M4_ROOT}/${M4_VRM}/lib,/usr/include" 
-	export PATH="${M4_ROOT}/bin:${PATH}"
+	if [ "${MAKE_ROOT}x" = "x" ]; then
+		export MAKE_ROOT="${HOME}/zot/boot/make"
+	fi
+	if [ "${GZIP_ROOT}x" = "x" ]; then
+		export GZIP_ROOT="${HOME}/zot/boot/gzip"
+	fi
+	if [ "${CURL_ROOT}x" = "x" ]; then
+		export CURL_ROOT="${HOME}/zot/boot/curl"
+	fi
+	if [ "${M4_ROOT}x" = "x" ]; then
+		export M4_ROOT="${HOME}/zot/boot/m4"
+	fi
+	if [ "${M4_INSTALL_PREFIX}x" = "x" ]; then
+		export M4_INSTALL_PREFIX="${HOME}/zot/prod/m4"   
+	fi
+
+	export MY_ROOT="${PWD}"
+	export PATH="${MAKE_ROOT}/bin:${M4_ROOT}/bin:${GZIP_ROOT}/bin:${PATH}"
+	export PATH="${MY_ROOT}/bin:${PATH}"
 fi

@@ -11,10 +11,8 @@ if [ $# -ne 0 ]; then
 	exit 8
 fi
 
-# mydir="$(dirname $0)"
-
-if [ "${M4_ROOT}" = '' ]; then
-	echo "Need to set M4_ROOT - source setenv.sh" >&2
+if [ "${MY_ROOT}" = '' ]; then
+	echo "Need to set MY_ROOT - source setenv.sh" >&2
 	exit 16
 fi
 if [ "${M4_VRM}" = '' ]; then
@@ -22,8 +20,8 @@ if [ "${M4_VRM}" = '' ]; then
         exit 16
 fi
 
-CODE_ROOT="${M4_ROOT}/${M4_VRM}"
-PATCH_ROOT="${M4_ROOT}/patches"
+CODE_ROOT="${MY_ROOT}/${M4_VRM}"
+PATCH_ROOT="${MY_ROOT}/patches"
 patches=`cd ${PATCH_ROOT} && find . -name "*.patch"`
 
 for patch in $patches; do
