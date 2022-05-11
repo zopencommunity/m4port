@@ -1,7 +1,11 @@
-make check fails with the following:
+make check results:
+
+Skipped checks were:
+  ./125.changeword ./126.changeword ./127.changeword ./128.changeword ./129.changeword ./130.changeword ./stackovf.test
 Failed checks were:
   ./005.command_li:out ./006.command_li:out ./006.command_li:err ./137.include:err
 
 You can manually cd int the m4 tree and:
 make install
 to install into your 'prod' directory
+

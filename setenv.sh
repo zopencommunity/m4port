@@ -33,7 +33,7 @@ else
 	fi
 
 	if [ "${MAKE_ROOT}x" = "x" ]; then
-		export MAKE_ROOT="${HOME}/zot/boot/make"
+		export MAKE_ROOT="${HOME}/zot/prod/make"
 	fi
 	if [ "${GZIP_ROOT}x" = "x" ]; then
 		export GZIP_ROOT="${HOME}/zot/boot/gzip"
@@ -49,6 +49,6 @@ else
 	fi
 
 	export MY_ROOT="${PWD}"
-	export PATH="${MAKE_ROOT}/bin:${M4_ROOT}/bin:${GZIP_ROOT}/bin:${PATH}"
+	export PATH="${MAKE_ROOT}/bin:${M4_ROOT}/bin:${GZIP_ROOT}/bin:${CURL_ROOT}/bin:${PATH}"
 	export PATH="${MY_ROOT}/bin:${PATH}"
 fi
