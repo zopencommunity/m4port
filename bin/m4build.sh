@@ -131,7 +131,7 @@ fi
 # Setup the configuration so that the system search path looks in lib and include ahead of the standard C libraries
 #
 export CC=xlclang
-export CFLAGS="-qascii -D_OPEN_THREADS=3 -D_UNIX03_SOURCE=1 -DNSIG=39 -D_AE_BIMODAL=1 -D_XOPEN_SOURCE_EXTENDED -D_ALL_SOURCE -D_ENHANCED_ASCII_EXT=0xFFFFFFFF -D_OPEN_SYS_FILE_EXT=1 -D_OPEN_SYS_SOCK_IPV6 -D_XOPEN_SOURCE=600 -D_XOPEN_SOURCE_EXTENDED  -qnose -qfloat=ieee -I${MY_ROOT}/${M4_VRM}/lib,${DELTA_ROOT}/include,/usr/include"
+export CFLAGS="-O2 -qascii -D_OPEN_THREADS=3 -D_UNIX03_SOURCE=1 -DNSIG=39 -D_AE_BIMODAL=1 -D_XOPEN_SOURCE_EXTENDED -D_ALL_SOURCE -D_ENHANCED_ASCII_EXT=0xFFFFFFFF -D_OPEN_SYS_FILE_EXT=1 -D_OPEN_SYS_SOCK_IPV6 -D_XOPEN_SOURCE=600 -D_XOPEN_SOURCE_EXTENDED  -qnose -qfloat=ieee -I${MY_ROOT}/${M4_VRM}/lib,${DELTA_ROOT}/include,/usr/include"
 
 ./configure --prefix="${M4_INSTALL_PREFIX}"
 if [ $? -gt 0 ]; then
