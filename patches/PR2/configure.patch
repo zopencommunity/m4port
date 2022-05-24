@@ -1,0 +1,13 @@
+diff --git a/configure b/configure
+index 33fd25d..d3b1f7f 100755
+--- a/configure
++++ b/configure
+@@ -46445,7 +46445,7 @@ find_stack_direction (int *addr, int depth)
+   return dir + dummy;
+ }
+ int
+-main (int argc, char *argv)
++main (int argc, char **argv)
+ {
+   printf ("%d\n", find_stack_direction (NULL, argc + 20));
+   return 0;
