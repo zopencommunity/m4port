@@ -1,0 +1,18 @@
+diff --git a/doc/m4.texi b/doc/m4.texi
+index 02b734c..455be3e 100644
+--- a/doc/m4.texi
++++ b/doc/m4.texi
+@@ -5018,10 +5018,10 @@ parameters.
+ @comment status: 1
+ @example
+ include(`none')
+-@error{}m4:stdin:1: cannot open `none': No such file or directory
++@error{}m4:stdin:1: cannot open `none': EDC5129I No such file or directory.
+ @result{}
+ include()
+-@error{}m4:stdin:2: cannot open `': No such file or directory
++@error{}m4:stdin:2: cannot open `': EDC5129I No such file or directory.
+ @result{}
+ sinclude(`none')
+ @result{}
+ 

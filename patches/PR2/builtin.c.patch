@@ -1,0 +1,55 @@
+diff --git a/src/builtin.c b/src/builtin.c
+index 5e36ab3..5c14ac3 100644
+--- a/src/builtin.c
++++ b/src/builtin.c
+@@ -979,6 +979,26 @@ m4_syscmd (struct obstack *obs MAYBE_UNUSED, int argc, token_data **argv)
+       sysval = status;
+     }
+ }
++#ifdef __MVS__
++ #if (__CHARSET_LIB == 1)
++#   include <stdio.h>
++#   include <stdlib.h>
++
++    static int setccsid(int fd, int ccsid) 
++    {
++      attrib_t attr;
++      int rc;
++
++      memset(&attr, 0, sizeof(attr));
++      attr.att_filetagchg = 1;
++      attr.att_filetag.ft_ccsid = ccsid;
++      attr.att_filetag.ft_txtflag = 1;
++
++      rc = __fchattr(fd, &attr, sizeof(attr));
++      return rc;
++    }
++  #endif
++#endif
+ 
+ static void
+ m4_esyscmd (struct obstack *obs, int argc, token_data **argv)
+@@ -1030,6 +1050,11 @@ m4_esyscmd (struct obstack *obs, int argc, token_data **argv)
+       close (fd);
+       return;
+     }
++#ifdef __MVS__
++ #if (__CHARSET_LIB == 1)
++   setccsid(fileno(pin), 819);
++ #endif
++#endif
+   while (1)
+     {
+       size_t avail = obstack_room (obs);
+@@ -1431,6 +1456,11 @@ mkstemp_helper (struct obstack *obs, const char *me, const char *pattern,
+     }
+   else
+     {
++#ifdef __MVS__
++ #if (__CHARSET_LIB == 1)
++   setccsid(fd, 819);
++ #endif
++#endif
+       close (fd);
+       /* Remove NUL, then finish quote.  */
+       obstack_blank_fast (obs, -1);
