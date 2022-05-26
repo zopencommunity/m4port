@@ -12,7 +12,7 @@ export PORT_TYPE="TARBALL"
 
 PORT_TARBALL_DIR=m4-1.4.19
 export PORT_TARBALL_URL="https://ftp.gnu.org/gnu/m4/${PORT_TARBALL_DIR}.tar.gz"
-export PORT_TARBALL_DEPS="curl gzip make m4 perl makeinfo"
+export PORT_TARBALL_DEPS="curl gzip make m4"
 
 PORT_GIT_DIR=m4
 export PORT_GIT_URL="https://github.com/autotools-mirror/${PORT_GIT_DIR}.git"
