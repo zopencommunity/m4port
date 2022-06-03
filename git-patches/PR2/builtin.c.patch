@@ -1,8 +1,8 @@
 diff --git a/src/builtin.c b/src/builtin.c
-index bc0cde21..9b412472 100644
+index 0715a332..1b6ab734 100644
 --- a/src/builtin.c
 +++ b/src/builtin.c
-@@ -1049,6 +1049,26 @@ m4_defn (struct obstack *obs, int argc, macro_arguments *argv)
+@@ -940,6 +940,26 @@ builtin `%s' requested by frozen file is not supported"), arg));
  
  /* Exit code from last "syscmd" command.  */
  static int sysval;
@@ -28,8 +28,8 @@ index bc0cde21..9b412472 100644
 +#endif
  
  static void
- m4_syscmd (struct obstack *obs M4_GNUC_UNUSED, int argc, macro_arguments *argv)
-@@ -1151,6 +1171,11 @@ m4_esyscmd (struct obstack *obs, int argc, macro_arguments *argv)
+ m4_syscmd (struct obstack *obs MAYBE_UNUSED, int argc, token_data **argv)
+@@ -1034,6 +1054,11 @@ m4_esyscmd (struct obstack *obs, int argc, token_data **argv)
        close (fd);
        return;
      }
@@ -41,15 +41,15 @@ index bc0cde21..9b412472 100644
    while (1)
      {
        size_t avail = obstack_room (obs);
-@@ -1534,6 +1559,11 @@ mkstemp_helper (struct obstack *obs, const call_info *me, const char *pattern,
+@@ -1435,6 +1460,11 @@ mkstemp_helper (struct obstack *obs, const char *me, const char *pattern,
      }
    else
      {
 +#ifdef __MVS__
 + #if (__CHARSET_LIB == 1)
-+   setccsid(fd, 819);
++      setccsid(fd, 819);
 + #endif
 +#endif
        close (fd);
        /* Remove NUL, then finish quote.  */
-       obstack_blank (obs, -1);
+       obstack_blank_fast (obs, -1);
