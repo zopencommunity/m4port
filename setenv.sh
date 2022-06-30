@@ -8,7 +8,7 @@ if ! [ -f ./setenv.sh ]; then
 fi
 
 export PORT_ROOT="${PWD}"
-export PORT_TYPE="GIT"
+export PORT_TYPE="TARBALL"
 
 PORT_TARBALL_DIR=m4-1.4.19
 export PORT_TARBALL_URL="https://ftp.gnu.org/gnu/m4/${PORT_TARBALL_DIR}.tar.gz"
