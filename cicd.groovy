@@ -10,6 +10,6 @@ node('linux')
         }
 
         stage('Build') {
-                build job: 'Port-Pipeline', parameters: [string(name: 'REPO', value: 'm4port'), string(name: 'DESCRIPTION', value: 'M4 is an implementation of the traditional Unix macro processor.' )]
+                build job: 'Port-Pipeline', parameters: [string(name: 'PORT_GITHUB_REPO', value: 'm4port'), string(name: 'PORT_DESCRIPTION', value: 'M4 is an implementation of the traditional Unix macro processor.' )]
         }
 }
