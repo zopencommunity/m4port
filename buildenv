@@ -19,10 +19,10 @@ export ZOPEN_EXTRA_LDFLAGS=""
 rm patches
 if [ "${ZOPEN_TYPE}x" = "TARBALLx" ]; then
 	export ZOPEN_BOOTSTRAP=skip
-	export ZOPEN_EXTRA_CFLAGS="-qnose -std=c11 -I${ZOPEN_ROOT}/${ZOPEN_TARBALL_DIR}/lib,${ZOPEN_ROOT}/patches/PR1/include,/usr/include/le"
+	export ZOPEN_EXTRA_CFLAGS="-qnose -std=c11 -I\${ZOPEN_ROOT}/${ZOPEN_TARBALL_DIR}/lib,\${ZOPEN_ROOT}/patches/PR1/include,/usr/include/le"
 	ln -s tarball-patches patches
 else
-	export ZOPEN_EXTRA_CFLAGS="-qnose -std=c11 -fgnu89-inline -I${ZOPEN_ROOT}/${ZOPEN_GIT_DIR}/lib,${ZOPEN_ROOT}/patches/PR1/include,/usr/include/le"
+	export ZOPEN_EXTRA_CFLAGS="-qnose -std=c11 -fgnu89-inline -I\${ZOPEN_ROOT}/${ZOPEN_GIT_DIR}/lib,\${ZOPEN_ROOT}/patches/PR1/include,/usr/include/le"
 	ln -s git-patches patches
 fi
 
