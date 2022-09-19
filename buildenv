@@ -35,16 +35,17 @@ dir="$1"
 pfx="$2"
 chk="$1/$2_check.log"
 
-set -x
 start_line=$(cat "${chk}" | egrep -n '^Failed checks were:' | awk -F':' '{ print $1 }')
 if [ $? -eq 0 ]; then
 	failures=$(cat "${chk}" | tail +${start_line} | head -2 | tail -1 | wc -w)
-	if [ ${failures} -gt 4 ]; then
-		exit 1
+	if [ ${failures} -eq 0 ]; then
+		return $ZOPEN_TEST_STATUS_ALL_PASSED
+	elif [ ${failures} -gt 4 ]; then
+		return $ZOPEN_TEST_STATUS_SOME_PASSED
 	else
-		exit 0
+		return $ZOPEN_TEST_STATUS_MOST_PASSED
 	fi
 fi
-exit 1
+return $ZOPEN_TEST_STATUS_ERROR
 }
 
