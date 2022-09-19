@@ -26,26 +26,15 @@ else
 	ln -s git-patches patches
 fi
 
+export ZOPEN_EXPECTED_FAILURES=4
+
 zopen_check_results()
 {
-# m4 check should have 4 (or 3) failures (3 if a git build)
-# Determine number of failures by looking at testcases on line _after_ 'Failed checks were:' line
-#
-dir="$1"
-pfx="$2"
-chk="$1/$2_check.log"
+chk="$2_check.log"
 
+totalTests=$(cat "${chk}" | grep "^Checking .*" | wc -l)
 start_line=$(cat "${chk}" | egrep -n '^Failed checks were:' | awk -F':' '{ print $1 }')
-if [ $? -eq 0 ]; then
-	failures=$(cat "${chk}" | tail +${start_line} | head -2 | tail -1 | wc -w)
-	if [ ${failures} -eq 0 ]; then
-		return $ZOPEN_TEST_STATUS_ALL_PASSED
-	elif [ ${failures} -gt 4 ]; then
-		return $ZOPEN_TEST_STATUS_SOME_PASSED
-	else
-		return $ZOPEN_TEST_STATUS_MOST_PASSED
-	fi
-fi
-return $ZOPEN_TEST_STATUS_ERROR
+failures=$(cat "${chk}" | tail +${start_line} | head -2 | tail -1 | wc -w)
+echo "$failures|$totalTests"
 }
 
