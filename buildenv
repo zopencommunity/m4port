@@ -26,8 +26,6 @@ else
 	ln -s git-patches patches
 fi
 
-export ZOPEN_EXPECTED_FAILURES=4
-
 zopen_check_results()
 {
 chk="$2_check.log"
@@ -35,6 +33,11 @@ chk="$2_check.log"
 totalTests=$(cat "${chk}" | grep "^Checking .*" | wc -l)
 start_line=$(cat "${chk}" | egrep -n '^Failed checks were:' | awk -F':' '{ print $1 }')
 failures=$(cat "${chk}" | tail +${start_line} | head -2 | tail -1 | wc -w)
-echo "$failures|$totalTests"
+
+cat <<ZZ
+actualFailures:$failures
+totalTests:$totalTests
+expectedFailures:4
+ZZ
 }
 
