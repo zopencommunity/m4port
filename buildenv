@@ -1,4 +1,3 @@
-#!/bin/sh
 #
 # Set up environment variables for general build tool to operate
 #
@@ -28,7 +27,7 @@ fi
 
 zopen_check_results()
 {
-chk="$2_check.log"
+chk="$1/$2_check.log"
 
 totalTests=$(cat "${chk}" | grep "^Checking .*" | wc -l)
 start_line=$(cat "${chk}" | egrep -n '^Failed checks were:' | awk -F':' '{ print $1 }')
