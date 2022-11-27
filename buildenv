@@ -2,7 +2,7 @@
 #
 # Set up environment variables for general build tool to operate
 #
-export ZOPEN_TYPE="GIT"
+export ZOPEN_TYPE="TARBALL"
 
 ZOPEN_TARBALL_DIR=m4-1.4.19
 export ZOPEN_TARBALL_URL="https://ftp.gnu.org/gnu/m4/${ZOPEN_TARBALL_DIR}.tar.gz"
@@ -26,9 +26,22 @@ else
 	ln -s git-patches patches
 fi
 
+zopen_append_to_env()
+{
+cat <<ZZ
+if [ ! -z "\$ZOPEN_IN_ZOPEN_BUILD" ]; then
+  #
+  # This is temporary until the autotools are fixed to remove
+  # hardcoded jenkins paths
+  #
+  export M4="$\$PWD/bin/m4"
+fi
+ZZ
+}
+
 zopen_check_results()
 {
-chk="$2_check.log"
+chk="$1/$2_check.log"
 
 totalTests=$(cat "${chk}" | grep "^Checking .*" | wc -l)
 start_line=$(cat "${chk}" | egrep -n '^Failed checks were:' | awk -F':' '{ print $1 }')
