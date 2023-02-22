@@ -5,7 +5,7 @@ export ZOPEN_TYPE="TARBALL"
 
 ZOPEN_TARBALL_DIR=m4-1.4.19
 export ZOPEN_TARBALL_URL="https://ftp.gnu.org/gnu/m4/${ZOPEN_TARBALL_DIR}.tar.gz"
-export ZOPEN_TARBALL_DEPS="curl gzip make m4"
+export ZOPEN_TARBALL_DEPS="curl gzip make m4 gettext texinfo"
 
 ZOPEN_GIT_DIR=m4
 export ZOPEN_GIT_URL="git://git.savannah.gnu.org/${ZOPEN_GIT_DIR}.git"
