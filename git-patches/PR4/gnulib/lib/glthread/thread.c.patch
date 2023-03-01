@@ -1,0 +1,39 @@
+diff --git a/lib/glthread/thread.c b/lib/glthread/thread.c
+index 1f28be59c8..23ec46337e 100644
+--- a/lib/glthread/thread.c
++++ b/lib/glthread/thread.c
+@@ -179,6 +179,18 @@ gl_thread_exit (void *return_value)
+   thrd_exit (0);
+ }
+ 
++gl_thread_t
++gl_thread_create (void *(*func) (void *arg), void *arg)
++{
++  gl_thread_t thread;
++  int ret;
++
++  ret = glthread_create (&thread, func, arg);
++  if (ret != 0)
++    abort ();
++  return thread;
++}
++
+ #endif
+ 
+ /* ========================================================================= */
+@@ -202,15 +214,3 @@ const gl_thread_t gl_null_thread /* = { .p = NULL } */;
+ #endif
+ 
+ /* ========================================================================= */
+-
+-gl_thread_t
+-gl_thread_create (void *(*func) (void *arg), void *arg)
+-{
+-  gl_thread_t thread;
+-  int ret;
+-
+-  ret = glthread_create (&thread, func, arg);
+-  if (ret != 0)
+-    abort ();
+-  return thread;
+-}
