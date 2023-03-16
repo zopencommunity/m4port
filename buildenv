@@ -21,7 +21,6 @@ if [ "${ZOPEN_TYPE}x" = "TARBALLx" ]; then
 	ln -s tarball-patches patches
 else
 	export ZOPEN_EXTRA_CFLAGS="-std=c11 -fgnu89-inline -I\${ZOPEN_ROOT}/${ZOPEN_GIT_DIR}/lib -I\${ZOPEN_ROOT}/patches/PR1/include"
-	#export ZOPEN_EXTRA_CFLAGS="-qnose -std=c11 -fgnu89-inline -I\${ZOPEN_ROOT}/${ZOPEN_GIT_DIR}/lib -I\${ZOPEN_ROOT}/patches/PR1/include"
 	ln -s git-patches patches
 fi
 
