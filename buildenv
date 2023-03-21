@@ -1,15 +1,14 @@
 #
 # Set up environment variables for general build tool to operate
 #
-export ZOPEN_TYPE="TARBALL"
+export ZOPEN_TYPE="GIT"
 
 ZOPEN_TARBALL_DIR=m4-1.4.19
 export ZOPEN_TARBALL_URL="https://ftp.gnu.org/gnu/m4/${ZOPEN_TARBALL_DIR}.tar.gz"
-export ZOPEN_TARBALL_DEPS="curl gzip make m4 gettext texinfo autoconf"
-
+export ZOPEN_TARBALL_DEPS="curl gzip make m4"
 ZOPEN_GIT_DIR=m4
 export ZOPEN_GIT_URL="git://git.savannah.gnu.org/${ZOPEN_GIT_DIR}.git"
-export ZOPEN_GIT_DEPS="git make m4 help2man perl texinfo xz autoconf automake gettext rsync patch gzip tar"
+export ZOPEN_GIT_DEPS="git make m4 help2man perl texinfo xz autoconf automake gettext rsync patch gzip tar gperf sed grep libtool autoconf"
 export ZOPEN_GIT_BRANCH="branch-1.4"
 
 export ZOPEN_EXTRA_LDFLAGS=""
@@ -21,7 +20,7 @@ if [ "${ZOPEN_TYPE}x" = "TARBALLx" ]; then
 	export ZOPEN_EXTRA_CFLAGS="-qnose -std=c11 -I\${ZOPEN_ROOT}/${ZOPEN_TARBALL_DIR}/lib,\${ZOPEN_ROOT}/patches/PR1/include,/usr/include/le"
 	ln -s tarball-patches patches
 else
-	export ZOPEN_EXTRA_CFLAGS="-qnose -std=c11 -fgnu89-inline -I\${ZOPEN_ROOT}/${ZOPEN_GIT_DIR}/lib,\${ZOPEN_ROOT}/patches/PR1/include,/usr/include/le"
+	export ZOPEN_EXTRA_CFLAGS="-std=c11 -fgnu89-inline -I\${ZOPEN_ROOT}/${ZOPEN_GIT_DIR}/lib -I\${ZOPEN_ROOT}/patches/PR1/include"
 	ln -s git-patches patches
 fi
 
