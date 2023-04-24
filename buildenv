@@ -1,7 +1,7 @@
 #
 # Set up environment variables for general build tool to operate
 #
-export ZOPEN_TYPE="GIT"
+export ZOPEN_TYPE="TARBALL"
 
 ZOPEN_TARBALL_DIR=m4-1.4.19
 export ZOPEN_TARBALL_URL="https://ftp.gnu.org/gnu/m4/${ZOPEN_TARBALL_DIR}.tar.gz"
