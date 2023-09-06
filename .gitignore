@@ -58,3 +58,5 @@ m4.tar.gz
 m4-*
 autoconf-*
 log/
+log.DEV
+log.STABLE
