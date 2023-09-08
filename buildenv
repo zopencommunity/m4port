@@ -1,9 +1,7 @@
 #
 # Set up environment variables for general build tool to operate
 #
-if [ -z "${ZOPEN_BUILD_LINE}" ]; then
-	export ZOPEN_BUILD_LINE="STABLE"
-fi
+export ZOPEN_BUILD_LINE="STABLE"
 
 ZOPEN_TARBALL_DIR=m4-1.4.19
 export ZOPEN_STABLE_URL="https://ftp.gnu.org/gnu/m4/${ZOPEN_TARBALL_DIR}.tar.gz"
@@ -13,18 +11,18 @@ export ZOPEN_DEV_URL="git://git.savannah.gnu.org/${ZOPEN_GIT_DIR}.git"
 export ZOPEN_DEV_DEPS="comp_clang git make m4 help2man perl texinfo xz autoconf automake gettext rsync patch gzip tar gperf sed grep libtool autoconf zoslib"
 export ZOPEN_DEV_BRANCH="branch-1.4"
 
-export ZOPEN_EXTRA_LDFLAGS=""
+zopen_post_buildenv()
+{
+  export ZOPEN_EXTRA_LDFLAGS=""
 
-rm patches
-if [ "${ZOPEN_TYPE}x" = "TARBALLx" ]; then
-	export ZOPEN_BOOTSTRAP=skip
-# -std=c11 required for max_align_t typedef in stddef.h
-	export ZOPEN_EXTRA_CFLAGS="-std=c11 -fgnu89-inline -I\${ZOPEN_ROOT}/${ZOPEN_GIT_DIR}/lib -I\${ZOPEN_ROOT}/patches/PR1/include"
-	ln -s tarball-patches patches
-else
-	ln -s git-patches patches
-	export ZOPEN_COMP=CLANG
-fi
+  if [ "${ZOPEN_BUILD_LINE}x" = "STABLEx" ]; then
+    export ZOPEN_BOOTSTRAP=skip
+  # -std=c11 required for max_align_t typedef in stddef.h
+    export ZOPEN_EXTRA_CFLAGS="-std=c11 -fgnu89-inline -I\${ZOPEN_ROOT}/${ZOPEN_GIT_DIR}/lib -I\${ZOPEN_ROOT}/patches/PR1/include"
+  else
+    export ZOPEN_COMP=CLANG
+  fi
+}
 
 zopen_append_to_env()
 {
