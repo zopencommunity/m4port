@@ -37,9 +37,9 @@ fi
 ZZ
 }
 
-zopen_version()
+zopen_get_version()
 {
-  ./m4 --version | awk '{print $3; }'
+  ./src/m4 --version | head -1 | awk '{print $4; }'
 }
 
 zopen_check_results()
