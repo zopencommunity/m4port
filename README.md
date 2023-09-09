@@ -1,17 +1,8 @@
 # m4port
-Place to share information about configure/build of m4 for z/OS (only deltas to open source)
+[GNU M4](https://www.gnu.org/software/m4/m4.html) is an implementation of the traditional Unix macro processor. It is mostly SVR4 compatible although it has some extensions (for example, handling more than 9 positional parameters to macros). 
 
-# pre-reqs
-You need gnu make, xlclang, and curl to download and unzip a tarball or git to build from scratch. 
-Detailed dependencies are in buildenv
 
-You will also need a 'bootstrap' m4 to build using the tarball. 
-
-To build, use zopen build from (https://github.com/ZOSOpenTools/utils) after setting up your environment, e.g.
-```
-. ./buildenv
-zopen build
-```
+To build, use `zopen build` after setting up your environment.
 
 For details on the build, see (https://zosopentools.github.io/meta/#/Guides/Porting)
 
