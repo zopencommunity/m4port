@@ -53,8 +53,11 @@ dkms.conf
 
 # Possible local code trees for m4 and autoconf
 patches
+install
 m4
 m4.tar.gz
 m4-*
 autoconf-*
 log/
+log.DEV
+log.STABLE

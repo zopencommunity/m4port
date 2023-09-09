@@ -7,7 +7,7 @@ index 90923090..4b2dcd68 100644
  
        /* Our constructed format string in fstart is safe.  */
 -#if 4 < __GNUC__ + (6 <= __GNUC_MINOR__)
-+#if ((4 < __GNUC__ + (6 <= __GNUC_MINOR__) || defined (__MVS__)))
++#if ((4 < __GNUC__ + (6 <= __GNUC_MINOR__)) || defined (__clang__))
  # pragma GCC diagnostic push
  # pragma GCC diagnostic ignored "-Wformat-nonliteral"
  #endif
