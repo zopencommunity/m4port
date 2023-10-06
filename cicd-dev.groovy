@@ -8,7 +8,7 @@ node('linux')
                        branches: [[name: '*/branch-1.4']],
                        doGenerateSubmoduleConfigurations: false,
                        extensions: [],
-                       userRemoteConfigs: [[url: 'git://git.savannah.gnu.org/${ZOPEN_GIT_DIR}.git']]])
+                       userRemoteConfigs: [[url: 'git://git.savannah.gnu.org/m4.git']]])
 
                 // Poll for local changes
                 checkout([
