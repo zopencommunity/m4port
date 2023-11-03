@@ -1,3 +1,5 @@
+[![Automatic version updates](https://github.com/ZOSOpenTools/m4port/actions/workflows/bump.yml/badge.svg)](https://github.com/ZOSOpenTools/m4port/actions/workflows/bump.yml)
+
 # m4port
 [GNU M4](https://www.gnu.org/software/m4/m4.html) is an implementation of the traditional Unix macro processor. It is mostly SVR4 compatible although it has some extensions (for example, handling more than 9 positional parameters to macros). 
 
