@@ -6,7 +6,7 @@ export ZOPEN_BUILD_LINE="STABLE"
 export ZOPEN_STABLE_URL="https://ftp.gnu.org/gnu/m4/m4-${M4_VERSION}.tar.gz"
 export ZOPEN_STABLE_DEPS="curl gzip make m4"
 export ZOPEN_DEV_URL="git://git.savannah.gnu.org/m4.git"
-export ZOPEN_DEV_DEPS="comp_clang git make m4 help2man perl texinfo xz autoconf automake gettext rsync patch gzip tar gperf sed grep libtool autoconf zoslib"
+export ZOPEN_DEV_DEPS="check_clang git make m4 help2man perl texinfo xz autoconf automake gettext rsync patch gzip tar gperf sed grep libtool autoconf zoslib"
 export ZOPEN_DEV_BRANCH="branch-1.4"
 
 zopen_post_buildenv()
