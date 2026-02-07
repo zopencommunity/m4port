@@ -1,5 +1,5 @@
 # bump: m4-version /M4_VERSION="(.*)"/ https://ftp.gnu.org/gnu/m4/|re:/m4-([\d.]+).tar.gz/$1/|semver:*
-M4_VERSION="1.4.19"
+M4_VERSION="1.4.21"
 
 export ZOPEN_BUILD_LINE="STABLE"
 
