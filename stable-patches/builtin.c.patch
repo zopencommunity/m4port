@@ -1,0 +1,36 @@
+diff --git a/src/builtin.c b/src/builtin.c
+index 514e11b..827768d 100644
+--- a/src/builtin.c
++++ b/src/builtin.c
+@@ -30,6 +30,7 @@
+ #include "regex.h"
+ #include "spawn-pipe.h"
+ #include "wait-process.h"
++#include <zos.h>
+ 
+ #define ARG(i) (argc > (i) ? TOKEN_DATA_TEXT (argv[i]) : "")
+ #define ARGLEN(i) (argc > (i) ? TOKEN_DATA_LEN (argv[i]) : 0)
+@@ -1068,6 +1069,11 @@ m4_esyscmd (struct obstack *obs, int argc, token_data **argv)
+       close (fd);
+       return;
+     }
++#ifdef __MVS__
++ #if (__CHARSET_LIB == 1)
++   __chgfdccsid(fileno(pin), 819);
++ #endif
++#endif
+   while (1)
+     {
+       size_t avail = obstack_room (obs);
+@@ -1473,6 +1479,11 @@ mkstemp_helper (struct obstack *obs, const char *me, const char *pattern,
+     }
+   else
+     {
++#ifdef __MVS__
++ #if (__CHARSET_LIB == 1)
++   __chgfdccsid(fd, 819);
++ #endif
++#endif
+       close (fd);
+       /* Remove NUL, then finish quote.  */
+       obstack_blank_fast (obs, -1);

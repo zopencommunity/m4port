@@ -8,10 +8,3 @@ builtin.c.patch
   going to be written to later as binary - this seems the lesser of two evils but needs to be
   investigated.
 
-canonicalize-lgpl.c.patch 
-- on z/OS, the __stat macro is defined and this causes a collision with the __stat macro
-  used in this file. The fix is to use a different macro name that doesn't collide, so __gplstat
-  was chosen.
-
-configure.patch
-- there is a typo in the argument definition of 'int main' - argv type is `char**` not `char*`
